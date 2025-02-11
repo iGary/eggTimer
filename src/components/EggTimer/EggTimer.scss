@@ -1,0 +1,23 @@
+@use "../../styles/_variables" as vars;
+
+.secondary-title {
+  margin-bottom: 60px;
+  font-size: large;
+}
+
+.cooking-options {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+
+  img {
+    cursor: pointer;
+    border-radius: 4px;
+
+    &.active {
+      border: 2px solid vars.$unitas-pink;
+      border-radius: 8px;
+    }
+  }
+}
