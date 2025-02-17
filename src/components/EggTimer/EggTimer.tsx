@@ -19,7 +19,7 @@ const COOKING_TIMES: EggTimings = {
 };
 
 // Define the type for cooking methods
-type CookingMethod = keyof EggTimings;
+export type CookingMethod = keyof EggTimings;
 
 // Define the names for each cooking method
 const EGG_TIMING_NAMES: Record<CookingMethod, string> = {
@@ -28,6 +28,12 @@ const EGG_TIMING_NAMES: Record<CookingMethod, string> = {
 	poached: 'Poached',
 	fried: 'Fried',
 };
+
+const getItems = async () => {
+	const res = await fetch('http://localhost:3000/api/items');
+	const responseBody = await res.json();
+	return responseBody;
+}
 
 const EggTimer: FC = () => {
 	const [selectedMethod, setSelectedMethod] = useState<CookingMethod | ''>('');
@@ -40,6 +46,12 @@ const EggTimer: FC = () => {
 		const savedTime = Number(localStorage.getItem('timeRemaining'));
 		if (savedMethod) setSelectedMethod(savedMethod);
 		if (savedTime) setTimeRemaining(savedTime);
+	}, []);
+
+	useEffect(() => {
+		getItems().then((res) => {
+			console.log(res)
+		});
 	}, []);
 
 	// Save method and time to local storage and handle timer logic
@@ -126,7 +138,7 @@ const EggTimer: FC = () => {
 					onClick={() => {
 						setIsActive(false);
 						if (selectedMethod !== '') {
-							setTimeRemaining(COOKING_TIMES[selectedMethod]);
+							setTimeRemaining(COOKING_TIMES[selectedMethod as CookingMethod]);
 						}
 					}}
 					disabled={!isActive}

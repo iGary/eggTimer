@@ -35,7 +35,7 @@ body {
 
     &:hover {
       &:not(:disabled) {
-        border-color: vars.$unitas-pink;
+        border-color: vars.$brand-pink;
         transform: scale(1.05);
       }
     }
